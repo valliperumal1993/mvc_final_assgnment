@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebApplication5.Physician>
+<script type="text/javascript" src="@Url.Content("..\\Scripts\\delete_popup.js")"></script>
+@{
+    ViewBag.Title = "Index";
+    List<string> spec_list=new List<string>();
+    List<string> hosp_list = new List<string>();
+
+    foreach (var items in ViewBag.speciality_list)
+    {
+        spec_list.Add(items.speciality1);
+
+    }
+    foreach (var items in ViewBag.hospital_list)
+    {
+        hosp_list.Add(items.HospitalName);
+
+    }
+    
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Npi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hospital)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConsultationCharges)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Npi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => spec_list[item.Speciality-1])
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => hosp_list[item.Hospital-1])
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConsultationCharges)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { onclick = "return popup()" })
+        </td>
+    </tr>
+}
+
+</table>
